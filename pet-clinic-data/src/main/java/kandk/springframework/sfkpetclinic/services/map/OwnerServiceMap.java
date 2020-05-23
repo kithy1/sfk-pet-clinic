@@ -2,9 +2,10 @@ package kandk.springframework.sfkpetclinic.services.map;
 
 import kandk.springframework.sfkpetclinic.model.Owner;
 import kandk.springframework.sfkpetclinic.services.OwnerService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
+@Service
 public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
     @Override
     public Set<Owner> findAll() {
