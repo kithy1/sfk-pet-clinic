@@ -1,11 +1,11 @@
 package kandk.springframework.sfkpetclinic.services.map;
 
 import kandk.springframework.sfkpetclinic.model.Vet;
-import kandk.springframework.sfkpetclinic.services.CrudService;
+import kandk.springframework.sfkpetclinic.services.VetService;
 
 import java.util.Set;
 
-public class VetServiceMap extends AbstractMapService<Vet, Long> implements CrudService<Vet, Long> {
+public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
     @Override
     public Set<Vet> findAll() {
         return super.findAll();
