@@ -1,12 +1,12 @@
 package kandk.springframework.sfkpetclinic.services.map;
 
 import kandk.springframework.sfkpetclinic.model.Specialty;
-import kandk.springframework.sfkpetclinic.services.SpecialtiesService;
+import kandk.springframework.sfkpetclinic.services.SpecialtyService;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 @Service
-public class SpecialtyMapService extends AbstractMapService<Specialty, Long> implements SpecialtiesService {
+public class SpecialtyMapService extends AbstractMapService<Specialty, Long> implements SpecialtyService {
     @Override
     public Set<Specialty> findAll() {
         return super.findAll();
