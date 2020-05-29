@@ -45,7 +45,7 @@ public class Owner extends Person {
         return pets;
     }
 
-    public void setPets(Set<Pet> pets) {
-        this.pets = pets;
+    public void setPets(Set<Pet> dupa) {
+        this.pets = dupa;
     }
 }
