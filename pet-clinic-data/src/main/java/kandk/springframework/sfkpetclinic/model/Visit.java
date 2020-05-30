@@ -13,14 +13,14 @@ public class Visit extends BaseEntity {
     private LocalDate date;
     @ManyToOne
     @JoinColumn(name = "pet_id")
-    private Pet pets;
+    private Pet pet;
 
-    public Pet getPets() {
-        return pets;
+    public Pet getPet() {
+        return pet;
     }
 
-    public void setPets(Pet pets) {
-        this.pets = pets;
+    public void setPet(Pet pets) {
+        this.pet = pets;
     }
 
     public String getDescription() {
