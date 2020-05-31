@@ -1,0 +1,11 @@
+spring:
+  profiles: springdatajpa
+  jpa:
+    hibernate:
+#      ddl-auto: create-drop
+
+
+
+
+
+
