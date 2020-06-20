@@ -5,6 +5,7 @@ import kandk.springframework.sfkpetclinic.repositories.PetTypeRepository;
 import kandk.springframework.sfkpetclinic.services.PetTypeService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -32,6 +33,7 @@ public class PetTypeSDJpaService implements PetTypeService {
     }
 
     @Override
+    @Transactional
     public PetType save(PetType petType) {
         return petTypeRepository.save(petType);
     }

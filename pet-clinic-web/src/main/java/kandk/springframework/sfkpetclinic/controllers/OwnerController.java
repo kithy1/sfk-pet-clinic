@@ -2,6 +2,7 @@ package kandk.springframework.sfkpetclinic.controllers;
 
 import kandk.springframework.sfkpetclinic.model.Owner;
 import kandk.springframework.sfkpetclinic.services.OwnerService;
+import kandk.springframework.sfkpetclinic.services.VisitService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,9 +18,11 @@ import java.util.List;
 public class OwnerController {
     private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
     private final OwnerService ownerService;
+    private final VisitService visitService;
 
-    public OwnerController(OwnerService ownerService) {
+    public OwnerController(OwnerService ownerService, VisitService visitService) {
         this.ownerService = ownerService;
+        this.visitService = visitService;
     }
 
     @InitBinder
@@ -36,7 +39,8 @@ public class OwnerController {
     @GetMapping("/{ownerId}")
     public ModelAndView showOwner(@PathVariable() Long ownerId){
         ModelAndView modelAndView = new ModelAndView("owners/ownerDetails");
-        modelAndView.addObject(ownerService.findById(ownerId));
+        Owner owner = ownerService.findById(ownerId);
+        modelAndView.addObject(owner);
         return modelAndView;
 
     }

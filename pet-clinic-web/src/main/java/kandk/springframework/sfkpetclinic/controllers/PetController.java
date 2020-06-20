@@ -1,5 +1,6 @@
 package kandk.springframework.sfkpetclinic.controllers;
 
+import kandk.springframework.sfkpetclinic.formmatters.PetValidator;
 import kandk.springframework.sfkpetclinic.model.Owner;
 import kandk.springframework.sfkpetclinic.model.Pet;
 import kandk.springframework.sfkpetclinic.model.PetType;
@@ -39,6 +40,7 @@ public class PetController {
 
     @ModelAttribute("owner")
     public Owner findOwner(@PathVariable("ownerId") Long ownerId) {
+
         return ownerService.findById(ownerId);
     }
 
@@ -47,10 +49,16 @@ public class PetController {
         dataBinder.setDisallowedFields("id");
     }
 
+    @InitBinder("pet")
+    public void initPetBinder(WebDataBinder dataBinder) {
+        dataBinder.setValidator(new PetValidator());
+    }
+
     @GetMapping("/pets/new")
     public String initCreationForm(Owner owner, Model model) {
         Pet pet = new Pet();
-        owner.addPet(pet);
+        owner.getPets().add(pet);
+        pet.setOwner(owner);
         model.addAttribute("pet", pet);
         return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
     }
@@ -65,6 +73,9 @@ public class PetController {
             model.addAttribute("pet", pet);
             return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
         } else {
+           owner.addPet(pet);
+          //  owner.getPets().add(pet);
+            pet.setOwner(owner);
             petService.save(pet);
             return "redirect:/owners/" + owner.getId();
         }
@@ -76,13 +87,14 @@ public class PetController {
         return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
     }
 
-    @PostMapping("/pets/{petsId}/edit")
-    public String processUpdateForm(@Valid Pet pet, Model model, Owner owner, BindingResult bindingResult) {
+    @PostMapping("/pets/{petId}/edit")
+    public String processUpdateForm(@Valid Pet pet, BindingResult bindingResult, Owner owner, Model model) {
         if (bindingResult.hasErrors()) {
             pet.setOwner(owner);
             model.addAttribute("pet", pet);
             return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
         } else {
+
             owner.addPet(pet);
             petService.save(pet);
             return "redirect:/owners/" + owner.getId();
