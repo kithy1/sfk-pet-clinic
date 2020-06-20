@@ -1,6 +1,7 @@
 package kandk.springframework.sfkpetclinic.model;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -17,7 +18,7 @@ import java.time.LocalDate;
 public class Visit extends BaseEntity {
 
     private String description;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
     @ManyToOne
