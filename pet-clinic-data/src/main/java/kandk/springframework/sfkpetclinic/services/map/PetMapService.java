@@ -20,6 +20,11 @@ public class PetMapService extends AbstractMapService<Pet, Long> implements PetS
     }
 
     @Override
+    public Pet saveAndFlush(Pet var1) {
+        return null;
+    }
+
+    @Override
     public void delete(Pet pet) {
         super.delete(pet);
     }

@@ -20,6 +20,11 @@ public class SpecialtyMapService extends AbstractMapService<Specialty, Long> imp
     }
 
     @Override
+    public Specialty saveAndFlush(Specialty var1) {
+        return null;
+    }
+
+    @Override
     public void delete(Specialty specialty) {
         super.delete(specialty);
     }

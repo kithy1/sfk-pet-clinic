@@ -47,4 +47,9 @@ public class VetSDJpaService implements VetService {
      vetRepository.deleteById(aLong);
 
     }
+
+    @Override
+    public Vet saveAndFlush(Vet var1) {
+        return null;
+    }
 }

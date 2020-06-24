@@ -46,4 +46,9 @@ public class SpecialtySDJpaService implements SpecialtyService {
     public void deleteById(Long aLong) {
         specialtyRepository.deleteById(aLong);
     }
+
+    @Override
+    public Specialty saveAndFlush(Specialty var1) {
+        return null;
+    }
 }

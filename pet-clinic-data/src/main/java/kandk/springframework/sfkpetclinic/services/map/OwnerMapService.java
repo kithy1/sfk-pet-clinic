@@ -35,6 +35,11 @@ public class OwnerMapService extends AbstractMapService<Owner, Long> implements 
     }
 
     @Override
+    public Owner saveAndFlush(Owner var1) {
+        return null;
+    }
+
+    @Override
     public void delete(Owner owner) {
         super.delete(owner);
     }

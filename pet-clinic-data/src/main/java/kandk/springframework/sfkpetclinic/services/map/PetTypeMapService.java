@@ -20,6 +20,11 @@ public class PetTypeMapService extends AbstractMapService<PetType, Long> impleme
     }
 
     @Override
+    public PetType saveAndFlush(PetType var1) {
+        return null;
+    }
+
+    @Override
     public void delete(PetType petType) {
         super.delete(petType);
     }

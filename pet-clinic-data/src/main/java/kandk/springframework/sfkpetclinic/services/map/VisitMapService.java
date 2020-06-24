@@ -39,4 +39,9 @@ public class VisitMapService extends AbstractMapService<Visit, Long> implements 
     public void deleteById(Long id) {
         super.deleteById(id);
     }
+
+    @Override
+    public Visit saveAndFlush(Visit var1) {
+        return null;
+    }
 }

@@ -23,10 +23,11 @@ public class VisitController {
         this.visitService = visitService;
         this.petService = petService;
     }
-    @InitBinder
-    public void setAllowedFields(WebDataBinder webDataBinder){
-        webDataBinder.setDisallowedFields("id");
-    }
+//    @InitBinder
+//    public void setAllowedFields(WebDataBinder webDataBinder){
+//
+//        webDataBinder.setDisallowedFields("id");
+//    }
     @InitBinder("pet")
     public void initPetBinder(WebDataBinder dataBinder) {
 
@@ -42,15 +43,45 @@ public class VisitController {
         return visit;
     }
     @GetMapping("/visits/new")
-    public String initNewVisitForm(@PathVariable("petId") Long petId, Model model){
+    public String initNewVisitForm(){
         return "pets/createOrUpdateVisitForm";
     }
+
     @PostMapping("/visits/new")
-    public String processNewVisitForm(@Valid Visit visit, BindingResult result){
+    public String processNewVisitForm(@Valid Visit visit, Pet pet, BindingResult result){
+
         if(result.hasErrors()){
-            return "pets/createOrUpdateForm";
+            return "pets/createOrUpdateVisitForm";
         }else {
             visitService.save(visit);
+            return "redirect:/owners/{ownerId}";
+        }
+    }
+    @GetMapping("/visits/{visitId}/edit")
+    public String initUpdateForm(@PathVariable Long visitId, Model model) {
+        Visit visit = visitService.findById(visitId);
+        model.addAttribute("visit", visit);
+        System.out.println("********************>"+visit.getId());
+        return "pets/createOrUpdateVisitForm";
+    }
+
+    @PostMapping("/visits/{visitId}/edit")
+//    @Transactional
+    public String processUpdateForm(@PathVariable Long visitId, @Valid Visit visit, BindingResult bindingResult,  Pet pet, Model model) {
+        if (bindingResult.hasErrors()) {
+            visit.setPet(pet);
+            model.addAttribute("visit", visit);
+            return "pets/createOrUpdateVisitForm";
+        } else {
+            System.out.println("--------------------->"+visit.getId());
+            visit.setId(visitId);
+            System.out.println("--------------------->"+visit.getId());
+            pet.addVisit(visit);
+
+
+            System.out.println("--------------------->"+visit.getId());
+            petService.save(pet);
+            //visitService.saveAndFlush(visit);
             return "redirect:/owners/{ownerId}";
         }
     }

@@ -49,5 +49,10 @@ public class PetSDJpaService implements PetService {
         petRepository.deleteById(aLong);
     }
 
+    @Override
+    public Pet saveAndFlush(Pet var1) {
+        return null;
+    }
+
 
 }

@@ -30,6 +30,11 @@ public class VetMapService extends AbstractMapService<Vet, Long> implements VetS
     }
 
     @Override
+    public Vet saveAndFlush(Vet var1) {
+        return null;
+    }
+
+    @Override
     public void delete(Vet vet) {
         super.delete(vet);
     }

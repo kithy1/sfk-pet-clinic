@@ -1,6 +1,9 @@
 package kandk.springframework.sfkpetclinic.model;
 
 import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -9,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-
+@Slf4j
 @Entity
 @Table(name = "pets")
 public class Pet extends BaseEntity {
@@ -27,19 +30,20 @@ public class Pet extends BaseEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "pet")
+    @LazyCollection(LazyCollectionOption.EXTRA)
     private Set<Visit> visits = new HashSet<>();
 
     public Pet() {
     }
 
     @Builder
-    public Pet(Long id, String name, Owner owner, LocalDate birthDate, Set<Visit> visits) {
+    public Pet(Long id, String name, Owner owner, LocalDate birthDate) {
         super(id);
         this.name = name;
         this.owner = owner;
         this.birthDate = birthDate;
-        if (visits != null)this.visits = visits;
+
     }
 
     public String getName() {
@@ -85,8 +89,11 @@ public class Pet extends BaseEntity {
     public void addVisit(Visit visit){
         if(visit.isNew()){
             visits.add(visit);
+            log.debug("dodano wizytę o id: " + visit.getId());
+            System.out.println("$$$$$$$$$$ dodano wizytę o id: " + visit.getId());
         }
         visit.setPet(this);
+        System.out.println("$$$$$$$$$$ dodano peta do wizyty o id: " + visit.getId());
 
     }
 

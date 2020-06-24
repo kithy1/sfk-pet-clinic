@@ -47,4 +47,9 @@ public class VisitSDJpaService implements VisitService {
     public void deleteById(Long aLong) {
         visitRepository.deleteById(aLong);
     }
+
+    @Override
+    public Visit saveAndFlush(Visit var1) {
+        return visitRepository.saveAndFlush(var1);
+    }
 }
